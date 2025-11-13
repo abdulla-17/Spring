@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Movie Details</title>
+</head>
+<body>
+
+<h2 th:text="${title}"></h2>
+
+<!-- First line always -->
+<p th:text="${#strings.listSplit(fullDesc, '\n')[0]}"></p>
+
+<!-- Full description only if logged in -->
+<div th:if="${isLoggedIn}">
+    <p th:text="${fullDesc}"></p>
+</div>
+
+<!-- If not logged in -->
+<div th:unless="${isLoggedIn}">
+    <p>Please log in to read the full movie description.</p>
+</div>
+
+</body>
+</html>
