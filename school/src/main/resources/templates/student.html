@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Page</title>
+</head>
+<body>
+
+
+<div th:if="${mode == 'info'}">
+    <h2>Student Information</h2>
+
+    <p>Roll Number: <span th:text="${student.rollNo}"></span></p>
+    <p>Name: <span th:text="${student.name}"></span></p>
+    <p>Marks: <span th:text="${student.marks}"></span></p>
+</div>
+
+
+<div th:if="${mode == 'list'}">
+    <h2>Student List</h2>
+
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Marks</th>
+        </tr>
+
+        <tr th:each="stu : ${students}">
+            <td th:text="${stu.rollNo}"></td>
+            <td th:text="${stu.name}"></td>
+            <td th:text="${stu.marks}"></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
