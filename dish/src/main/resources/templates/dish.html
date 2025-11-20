@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <title>Dish</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; padding: 2rem; }
+    .card { border: 1px solid #ddd; padding: 1.25rem; border-radius: 8px; max-width: 420px; }
+    h1 { margin: 0 0 .5rem 0; font-size: 1.5rem; }
+    p.price { font-weight: 700; font-size: 1.25rem; margin: .5rem 0 0 0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1 th:text="${dishName}">Dish Name</h1>
+    <p class="price">₹ <span th:text="${#numbers.formatDecimal(dishPrice, 1, 'COMMA', 2, 'POINT')}">0.00</span></p>
+  </div>
+</body>
+</html>

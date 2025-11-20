@@ -20,7 +20,7 @@ public class BookController {
 
     @GetMapping("/books/new")
     public String showBookForm(Model model) {
-        model.addAttribute("book", new Book()); // ✅ Correct: Book object
+        model.addAttribute("book", new Book()); 
         return "book_form";
     }
 
