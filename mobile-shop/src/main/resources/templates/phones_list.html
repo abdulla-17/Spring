@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Phones — List</title>
+<style>
+body{font-family: Arial, sans-serif; padding:20px}
+table{width:100%; border-collapse:collapse}
+th,td{border:1px solid #ddd;padding:8px}
+th{background:#f4f4f4}
+.actions a{margin-right:8px}
+.top{margin-bottom:12px}
+.msg{padding:8px;margin-bottom:12px;border-radius:4px}
+.success{background:#e6ffed;border:1px solid #b7f0c6}
+.error{background:#ffe6e6;border:1px solid #f0b7b7}
+</style>
+</head>
+<body>
+<h1>Available Phones</h1>
+<div class="top">
+<a href="/phones/new">+ Add new phone</a>
+</div>
+
+
+<div th:if="${success}" class="msg success" th:text="${success}"></div>
+<div th:if="${error}" class="msg error" th:text="${error}"></div>
+
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Description</th>
+<th>Price</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="phone : ${phones}">
+<td th:text="${phone.id}"></td>
+<td th:text="${phone.name}"></td>
+<td th:text="${phone.description}"></td>
+<td th:text="${phone.price}"></td>
+<td class="actions">
+<a th:href="@{/phones/edit/{id}(id=${phone.id})}">Edit</a>
+<a th:href="@{/phones/delete/{id}(id=${phone.id})}" onclick="return confirm('Delete this phone?');">Delete</a>
+</td>
+</tr>
+<tr th:if="${phones.size()} == 0">
+<td colspan="5">No phones available.</td>
+</tr>
+</tbody>
+</table>
+
+
+</body>
+</html>
