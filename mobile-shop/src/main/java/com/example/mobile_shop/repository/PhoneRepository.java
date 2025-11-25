@@ -1,8 +1,8 @@
 package com.example.mobile_shop.repository;
 
 import com.example.mobile_shop.model.Phone;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface PhoneRepository extends JpaRepository<Phone, Long> {
-    // no extra methods needed for basic CRUD
+public interface PhoneRepository extends CrudRepository<Phone, Long> {
+    
 }

@@ -20,21 +20,21 @@ public class PhoneController {
         this.repo = repo;
     }
 
-    // list all
+    
     @GetMapping
     public String listPhones(Model model) {
         model.addAttribute("phones", repo.findAll());
         return "phones_list";
     }
 
-    // show form for add
+    
     @GetMapping("/new")
     public String showNewForm(Model model) {
         model.addAttribute("phone", new Phone());
         return "phone_form";
     }
 
-    // handle save (create or update)
+    
     @PostMapping("/save")
     public String savePhone(@ModelAttribute Phone phone, RedirectAttributes ra) {
         if (phone.getPrice() == null) phone.setPrice(BigDecimal.ZERO);
@@ -47,7 +47,7 @@ public class PhoneController {
         return "redirect:/phones";
     }
 
-    // edit
+    
     @GetMapping("/edit/{id}")
     public String editPhone(@PathVariable Long id, Model model, RedirectAttributes ra) {
         Optional<Phone> opt = repo.findById(id);
@@ -59,7 +59,7 @@ public class PhoneController {
         return "phone_form";
     }
 
-    // delete
+    
     @GetMapping("/delete/{id}")
     public String deletePhone(@PathVariable Long id, RedirectAttributes ra) {
         if (repo.existsById(id)) {
