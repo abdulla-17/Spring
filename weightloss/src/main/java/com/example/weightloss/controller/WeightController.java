@@ -31,15 +31,13 @@ public class WeightController {
         this.weightEntryRepository = weightEntryRepository;
     }
 
-    // helper to fetch current user entity
+   
     private User currentUser(Principal principal) {
         return userRepository.findByUsername(principal.getName())
                 .orElseThrow(() -> new IllegalStateException("Authenticated user not found"));
     }
 
-    /**
-     * List weights (paged). Renders list.html which expects "page" and "currentPage".
-     */
+  
     @GetMapping
     public String list(@RequestParam(defaultValue = "0") int page,
                        @RequestParam(defaultValue = "10") int size,
@@ -52,18 +50,14 @@ public class WeightController {
         return "list";
     }
 
-    /**
-     * Show add form
-     */
+  
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("error", null);
         return "add";
     }
 
-    /**
-     * Handle add request (adds today's weight). Shows error in add.html on conflict/validation.
-     */
+   
     @PostMapping("/add")
     public String add(@RequestParam Double weightKg, Principal principal, Model model) {
         User u = currentUser(principal);
@@ -76,9 +70,7 @@ public class WeightController {
         }
     }
 
-    /**
-     * Show edit form for a specific entry id (ensures ownership).
-     */
+  
     @GetMapping("/edit/{id}")
     public String editForm(@PathVariable Long id, Principal principal, Model model) {
         User u = currentUser(principal);
@@ -92,9 +84,7 @@ public class WeightController {
         return "edit";
     }
 
-    /**
-     * Handle edit submission.
-     */
+  
     @PostMapping("/edit/{id}")
     public String edit(@PathVariable Long id, @RequestParam Double weightKg,
                        Principal principal, Model model) {
@@ -103,7 +93,7 @@ public class WeightController {
             weightService.edit(u, id, weightKg);
             return "redirect:/weights";
         } catch (Exception ex) {
-            // re-show form with error
+          
             Optional<WeightEntry> opt = weightEntryRepository.findById(id)
                     .filter(e -> e.getUser() != null && e.getUser().getId().equals(u.getId()));
             opt.ifPresent(e -> model.addAttribute("entry", e));
@@ -112,9 +102,7 @@ public class WeightController {
         }
     }
 
-    /**
-     * Delete an entry (POST). Ownership enforced in service.
-     */
+  
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Long id, Principal principal) {
         User u = currentUser(principal);
@@ -126,10 +114,7 @@ public class WeightController {
         return "redirect:/weights";
     }
 
-    /**
-     * Calculate difference between two dates and render the list page with the result.
-     * Shows friendly errors in the same view if something is wrong.
-     */
+ 
     @GetMapping("/diff")
     public String diff(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
@@ -156,7 +141,7 @@ public class WeightController {
             }
         }
 
-        // always populate the listing so list.html can render
+    
         Page<WeightEntry> p = weightService.list(u, page, size);
         model.addAttribute("page", p);
         model.addAttribute("currentPage", page);
