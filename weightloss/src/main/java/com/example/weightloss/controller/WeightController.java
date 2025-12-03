@@ -109,7 +109,7 @@ public class WeightController {
         try {
             weightService.delete(u, id);
         } catch (Exception ignored) {
-            // ignore and redirect back
+            
         }
         return "redirect:/weights";
     }
