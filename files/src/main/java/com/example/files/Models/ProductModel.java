@@ -1,4 +1,4 @@
-package com.example.apicrud.Models;
+package com.example.files.Models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

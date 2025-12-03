@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add weight</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+  <div class="container">
+    <h2>Add today's weight</h2>
+    <form method="post" th:action="@{/weights/add}">
+      <label>Weight (kg): <input name="weightKg" step="0.1" required/></label>
+      <div><button type="submit">Add</button></div>
+    </form>
+    <p th:if="${error}" th:text="${error}"></p>
+    <p><a th:href="@{/weights}">Back</a></p>
+  </div>
+</body>
+</html>

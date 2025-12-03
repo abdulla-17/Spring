@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product List</title>
+</head>
+<body>
+<h1>Product List</h1>
+<form action="#" th:action="@{/all}" method="get">
+    <input type="text" name="keyword" placeholder="Search by name or description" />
+    <input type="submit" value="Search" />
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Expiry Date</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.expirydate}"></td>
+            <td th:text="${product.price}"></td>
+            <td>
+                <a th:href="@{/update/{id}(id=${product.id})}">Edit</a>
+                <a th:href="@{/delete/{id}(id=${product.id})}">Delete</a>
+				<a th:href="@{/pdf/{id}(id=${product.id})}">Download Pdf</a>
+				<a th:href="@{/email/{id}(id=${product.id})}">Send Email</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

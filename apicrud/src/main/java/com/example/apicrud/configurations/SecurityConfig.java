@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.example.apicrud.service.CustomUserDetailsService;
 
 
 @Configuration
@@ -19,8 +18,7 @@ import com.example.apicrud.service.CustomUserDetailsService;
 public class SecurityConfig {
    
    
-    @Autowired
-    CustomUserDetailsService customUserDetailsService;
+   
    
     @Bean
     public static PasswordEncoder passwordEncoder() {
@@ -46,8 +44,8 @@ public class SecurityConfig {
     }
 
 
-    @Autowired
-    public void configure (AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
-    }     
+//    @Autowired
+//    public void configure (AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+//    }     
 }

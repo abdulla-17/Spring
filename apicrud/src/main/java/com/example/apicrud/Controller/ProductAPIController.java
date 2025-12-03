@@ -1,7 +1,7 @@
 package com.example.apicrud.Controller;
 
 import com.example.apicrud.exception.ProductNotFoundException;
-import com.example.apicrud.Models.Product;
+import com.example.apicrud.Models.ProductModel;
 import com.example.apicrud.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -20,26 +20,26 @@ public class ProductAPIController {
 
 
     @PostMapping("api/addproduct")
-    Product newProduct(@RequestBody Product newProduct) {
+    ProductModel newProduct(@RequestBody ProductModel newProduct) {
         return productRepository.save(newProduct);
     }
 
 
     @GetMapping("api/listproduct")
-    List<Product> getAllProducts() {
+    List<ProductModel> getAllProducts() {
         return productRepository.findAll();
     }
 
 
     @GetMapping("api/product/{id}")
-    Product getProductById(@PathVariable Integer id) {
+    ProductModel getProductById(@PathVariable Integer id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(id));
     }
 
 
     @PutMapping("api/updateproduct/{id}")
-    Product updateProduct(@RequestBody Product newProduct, @PathVariable Integer id) {
+    ProductModel updateProduct(@RequestBody ProductModel newProduct, @PathVariable Integer id) {
         return productRepository.findById(id)
                 .map(product -> {
                     product.setName(newProduct.getName());
@@ -60,7 +60,7 @@ public class ProductAPIController {
     }
     
      @GetMapping("api/search")
-        List<Product> searchProducts(@Param("keyword") String keyword) {
+        List<ProductModel> searchProducts(@Param("keyword") String keyword) {
             return productRepository.findAllByKeyword(keyword);
         }
 }
