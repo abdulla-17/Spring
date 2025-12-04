@@ -132,7 +132,7 @@ public class WeightController {
             model.addAttribute("diffError", "'From' date must be earlier than or equal to 'To' date.");
         } else {
             try {
-                double diffValue = weightService.diff(u, from, to);
+                double diffValue = weightService.diffStrict(u, from, to);
                 model.addAttribute("diff", diffValue);
             } catch (IllegalArgumentException ex) {
                 model.addAttribute("diffError", ex.getMessage());

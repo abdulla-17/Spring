@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.List;
 
 @Service
 public class WeightService {
@@ -53,12 +52,16 @@ public class WeightService {
         repo.delete(e);
     }
 
-    public double diff(User user, LocalDate from, LocalDate to) {
+ 
+    public double diffStrict(User user, LocalDate from, LocalDate to) {
         if (from.isAfter(to)) throw new IllegalArgumentException("from must be <= to");
-        List<WeightEntry> entries = repo.findByUserAndEntryDateBetweenOrderByEntryDate(user, from, to);
-        if (entries.isEmpty()) throw new IllegalArgumentException("No entries in the range");
-        double start = entries.get(0).getWeightKg();
-        double end = entries.get(entries.size() - 1).getWeightKg();
-        return start - end; // positive => weight loss
+
+        WeightEntry startEntry = repo.findByUserAndEntryDate(user, from)
+                .orElseThrow(() -> new IllegalArgumentException("No entry found for from date: " + from));
+        WeightEntry endEntry = repo.findByUserAndEntryDate(user, to)
+                .orElseThrow(() -> new IllegalArgumentException("No entry found for to date: " + to));
+
+        return startEntry.getWeightKg() - endEntry.getWeightKg();
     }
+
 }

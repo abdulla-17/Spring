@@ -8,14 +8,42 @@
 <body>
   <div class="container">
     <h2>Login</h2>
-    <form method="post" th:action="@{/login}">
-      <div><label>Username: <input name="username"/></label></div>
-      <div><label>Password: <input type="password" name="password"/></label></div>
-      <div><button type="submit">Login</button></div>
-    </form>
+
+    <!-- show friendly error if login failed -->
+    <div th:if="${param.error}">
+      <p style="color:crimson">Invalid username or password.</p>
+    </div>
+    <div th:if="${param.logout}">
+      <p style="color:green">You have been logged out.</p>
+    </div>
+    <div th:if="${param.registered}">
+      <p style="color:green">Registered successfully. Please login.</p>
+    </div>
+
+	<form th:action="@{/login}" method="post" autocomplete="off">
+	  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+	  <!-- Fake fields to trick Chrome/Edge autofill -->
+	  <input type="text" name="fakeuser" style="display:none">
+	  <input type="password" name="fakepass" style="display:none">
+
+	  <div>
+	    <label>Username:
+	      <input name="username" autocomplete="new-username" required />
+	    </label>
+	  </div>
+
+	  <div>
+	    <label>Password:
+	      <input type="password" name="password" autocomplete="new-password" required />
+	    </label>
+	  </div>
+
+	  <div><button type="submit">Login</button></div>
+	</form>
+
+
     <p>New? <a th:href="@{/register}">Register</a></p>
-    <p th:if="${param.registered}">Registered successfully. Please login.</p>
-    <p th:if="${param.logout}">Logged out successfully.</p>
   </div>
 </body>
 </html>
